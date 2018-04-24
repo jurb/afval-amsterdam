@@ -1,0 +1,39 @@
+<html>
+<div>
+    <input id="searchinput">
+    <ul id="searchlist">
+
+    </ul>
+</div>
+
+
+<script>
+    document.getElementById('searchinput').addEventListener("keyup", searchy);
+
+    function searchy() {
+        document.getElementById('searchlist').innerHTML = ""
+        var searchcontent = document.getElementById('searchinput').value
+        console.log(searchcontent)
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `https://api.data.amsterdam.nl/atlas/typeahead/bag/?format=json&q=${searchcontent}`, false);
+        xhr.send();
+        if (xhr.response == '[]'){return;}
+        else {
+        let results = JSON.parse(xhr.responseText)[0].content
+        results.forEach(element => {
+            console.log(element)
+            let ul = document.getElementById('searchlist')
+            let li = document.createElement('li')
+            let text = element['_display']
+            // xhr.open("GET", `https://api.data.amsterdam.nl/atlas/search/adres/?q=${searchcontent}`, false);
+            // xhr.send();
+            // let details = JSON.parse(xhr.responseText)
+            // let coords = details['results'][0]['centroid']
+            li.appendChild(document.createTextNode(text))
+            ul.appendChild(li)
+        });
+    }
+    }
+</script>
+
+</html>

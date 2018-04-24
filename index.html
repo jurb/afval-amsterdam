@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amsterdam Afval Info</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <style>
+        body,
+        input {
+            font-family: 'Lato', sans-serif;
+        }
+
+        .button {
+            background-color: #ec0000;
+            border-color: transparent;
+            color: #fff;
+        }
+
+        a,
+        a:hover {
+            color: #ea0000
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="columns is-mobile">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="content">
+                    <p class="is-size-1">
+                        <a href="/"><img src="andreas.png" class="alt-logo" alt="Gemeente Amsterdam">
+                        Afval Info <strong>Amsterdam</strong></a>
+                    </p>
+                    <div id="search-container">
+                        <div class="control">
+                            <p class="is-size-4">
+                                Zoek op straat/postcode + huisnummer
+                            </p>
+                            <div class="field is-grouped">
+                                <p class="control is-expanded">
+                                    <input id="searchinput" spellcheck="false" class="input is-large" placeholder="Bijv. 'Amstel 1'">
+                                </p>
+                                <p class="control">
+                                    <button class="button is-large" onclick="geoFindMe()">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-location-arrow"></i>
+                                        </span>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="searchlist" class="is-size-4">
+                        </div>
+                    </div>
+                    <div id="result-container">
+                        <h1 id="result-header"></h1>
+                        <p id="result-huisvuil" class="is-size-4"></p>
+                        <p id="result-huisvuil-opmerking" class="is-size-5"></p>
+                        <p id="result-grofvuil" class="is-size-4"></p>
+                        <p id="result-grofvuil-opmerking" class="is-size-5"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="app.js"></script>
+</html>
