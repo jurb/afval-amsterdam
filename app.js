@@ -8,6 +8,18 @@ function getURLParameters(key) {
 var address = getURLParameters("address");
 var coords = getURLParameters("coords");
 
+// Bind html element ids to variables
+var searchContainer = document.getElementById("search-container");
+var resultHuisvuil = document.getElementById("result-huisvuil");
+var resultHuisvuilOpmerking = document.getElementById("result-huisvuil-opmerking");
+var resultGrofvuil = document.getElementById("result-grofvuil");
+var resultGrofvuilOpmerking = document.getElementById("result-grofvuil-opmerking");
+var resultHeader = document.getElementById("result-header");
+var searchInput = document.getElementById("searchinput");
+var searchList = document.getElementById("searchlist");
+var geoButton = document.getElementById("geo-button");
+var searchStatusText = document.getElementById("search-status-text");
+
 ////////////////////////////////////////////////////
 // If coords are in URL: show trash rules via API //
 ////////////////////////////////////////////////////
@@ -23,10 +35,14 @@ if (coords) {
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var result = JSON.parse(this.responseText);
-        if(result.result.features.length == 0) {document.getElementById("result-header").innerHTML = "Deze locatie ligt niet in Amsterdam"}
-        else {
-        parseResult(result);
-      }}
+        if (result.result.features.length == 0) {
+          resultHeader.innerHTML =
+            "Deze locatie ligt niet in Amsterdam";
+        } else {
+          console.log(result.result.features)
+          parseResult(result);
+        }
+      }
     };
     xmlhttp.open("GET", searchurl, true);
     xmlhttp.send();
@@ -45,14 +61,15 @@ if (coords) {
     var websiteGrof = obj.result.features[1].properties.website;
     var opmerkingGrof = obj.result.features[1].properties.opmerking;
 
-    document.getElementById("result-header").innerHTML = naamGrof;
+    resultHeader.innerHTML = naamGrof;
+
     if (ophaaldag) {
       var ophaaldagArray = ophaaldag.split(",");
       var ophaaldagZin =
         ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
         " en " +
         ophaaldagArray.slice(-1);
-      document.getElementById("result-huisvuil").innerHTML =
+      resultHuisvuil.innerHTML =
         "<strong>Huisvuil</strong>: " +
         aanbiedwijze +
         ", op " +
@@ -64,16 +81,14 @@ if (coords) {
         ".";
     }
     if (!ophaaldag) {
-      document.getElementById("result-huisvuil").innerHTML =
+      resultHuisvuil.innerHTML =
         "<strong>Huisvuil</strong>: " + aanbiedwijze + ".";
     }
     if (opmerking) {
-      document.getElementById(
-        "result-huisvuil-opmerking"
-      ).innerHTML = opmerking;
+      resultHuisvuilOpmerking.innerHTML = opmerking;
     }
     if (ophaaldagGrof == "Op afspraak") {
-      document.getElementById("result-grofvuil").innerHTML =
+      resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: <a href='" +
         "https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/scGrofvuil.aspx" +
         "'>" +
@@ -81,10 +96,10 @@ if (coords) {
         "</a>.";
     }
     if (!tijd_vanafGrof) {
-      document.getElementById("result-grofvuil").innerHTML =
+      resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: " + ophaaldagGrof + ".";
     } else {
-      document.getElementById("result-grofvuil").innerHTML =
+      resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: " +
         ophaaldagGrof +
         ", van " +
@@ -94,9 +109,7 @@ if (coords) {
         ".";
     }
     if (opmerkingGrof) {
-      document.getElementById(
-        "result-grofvuil-opmerking"
-      ).innerHTML = opmerkingGrof;
+      resultGrofvuilOpmerking.innerHTML = opmerkingGrof;
     }
   };
 
@@ -104,7 +117,7 @@ if (coords) {
   var lat = coordsArray[1];
   var lon = coordsArray[0];
   afvalCoordsAPIcall();
-  document.getElementById("search-container").className = "is-hidden";
+  searchContainer.className = "is-hidden";
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -112,7 +125,7 @@ if (coords) {
 ////////////////////////////////////////////////////////////////////////
 
 if (address) {
-  document.getElementById("search-container").className = "is-hidden";
+  searchContainer.className = "is-hidden";
 
   var addressSearchAPIcall = function addressSearchAPIcall() {
     var xmlhttp = new XMLHttpRequest();
@@ -143,7 +156,7 @@ if (address) {
 else {
   var typeaheadAPIcall = function typeaheadAPIcall() {
     var xmlhttp = new XMLHttpRequest();
-    var searchcontent = document.getElementById("searchinput").value;
+    var searchcontent = searchInput.value;
     var searchurl =
       "https://api.data.amsterdam.nl/atlas/typeahead/bag/?format=json&q=" +
       searchcontent;
@@ -170,7 +183,7 @@ else {
         }
       }
     }
-    document.getElementById("searchlist").innerHTML = "<br>" + out;
+    searchList.innerHTML = "<br>" + out;
 
     // add searchlist click listeners
     if (window.NodeList && !NodeList.prototype.forEach) {
@@ -183,33 +196,35 @@ else {
     }
     document.querySelectorAll("#searchlist a").forEach(function(element) {
       element.addEventListener("click", function() {
-        document.getElementById("searchinput").value =
+        searchInput.value =
           element.attributes.id.textContent + " ";
-        document.getElementById("searchinput").focus();
+          searchInput.focus();
       });
     });
   };
 
-  document
-    .getElementById("searchinput")
+  searchInput
     .addEventListener("keyup", typeaheadAPIcall);
 
   // Geo button stuff
   if (!navigator.geolocation) {
-    document.getElementById("geo-button").className = "is-hidden";
+    geoButton.className = "is-hidden";
   }
- 
+
   var geoFindMe = function geoFindMe() {
-     function success(position) {
+    function success(position) {
       var lat = position.coords.latitude;
       var lon = position.coords.longitude;
       window.location = "?coords=" + lon + "," + lat;
-      };
-      
-      var error = function error() {
-        document.getElementById("search-status-text").innerHTML = "Het is niet gelukt om jouw locatie te vinden"; 
-      }
-      document.getElementById("search-status-text").innerHTML = "Bezig met locatie vinden..."; 
-      navigator.geolocation.getCurrentPosition(success, error);
     }
-  } // ends else
+
+    var error = function error() {
+      
+      searchStatusText.innerHTML =
+        "Het is niet gelukt om jouw locatie te vinden";
+    };
+    searchStatusText.innerHTML =
+      "Bezig met locatie vinden...";
+    navigator.geolocation.getCurrentPosition(success, error);
+  };
+} // ends else
