@@ -62,18 +62,18 @@
                 <div id="search-container">
                     <div class="control">
                         <p class="is-size-4" id="search-input-text">
-                            Zoek op straat/postcode + huisnummer
+                            Zoek op huidige locatie of straat + huisnummer
                         </p>
                         <div class="field is-grouped">
+                                        <p class="control">
+                                            <button class="button is-large" id="geo-button" onclick="geoFindMe()">
+                                                <span class="icon is-small">
+                                                    <i class="fas fa-location-arrow icon-white"></i>
+                                                </span>
+                                            </button>
+                                        </p>
                             <p class="control is-expanded">
                                 <input id="searchinput" spellcheck="false" class="input is-large" placeholder="Bijv. 'Amstel 1'">
-                            </p>
-                            <p class="control">
-                                <button class="button is-large" id="geo-button" onclick="geoFindMe()">
-                                    <span class="icon is-small">
-                                        <i class="fas fa-location-arrow icon-white"></i>
-                                    </span>
-                                </button>
                             </p>
                         </div>
                     </div>
