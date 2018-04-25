@@ -73,7 +73,13 @@ if (coords) {
         ophaaldagGrof +
         "</a>.";
     }
-    if (ophaaldagGrof != "Op afspraak") {
+    if (!tijd_vanafGrof) {
+      document.getElementById("result-grofvuil").innerHTML =
+        "<strong>Grofvuil</strong>: " +
+        ophaaldagGrof + ".";
+    }
+
+    else {
       document.getElementById("result-grofvuil").innerHTML =
         "<strong>Grofvuil</strong>: " +
         ophaaldagGrof +
@@ -90,14 +96,17 @@ if (coords) {
     }
   };
 
-  document.getElementById("search-container").className = "is-hidden";
   var coordsArray = coords.split(",");
   var lat = coordsArray[1];
   var lon = coordsArray[0];
   afvalCoordsAPIcall();
+  document.getElementById("search-container").className = "is-hidden";
+
 }
 
 if (address) {
+  document.getElementById("search-container").className = "is-hidden";
+
   var addressSearchAPIcall = function addressSearchAPIcall() {
     var xmlhttp = new XMLHttpRequest();
     var searchurl =
@@ -177,6 +186,8 @@ if (address) {
   document
     .getElementById("searchinput")
     .addEventListener("keyup", typeaheadAPIcall);
+
+
 
   if (!navigator.geolocation) {
     document.getElementById("geo-button").className = "is-hidden";
