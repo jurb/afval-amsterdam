@@ -99,7 +99,7 @@ if (coords) {
       resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: Geen inzamelingsdagen.";
     } 
-    else {
+    if (ophaaldagGrof != "Geen inzamelingsdagen" && ophaaldagGrof != "Op afspraak"){
       resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: " +
         ophaaldagGrof +
