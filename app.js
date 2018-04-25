@@ -23,8 +23,10 @@ if (coords) {
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var result = JSON.parse(this.responseText);
+        if(result.result.features.length == 0) {document.getElementById("result-header").innerHTML = "Deze locatie ligt niet in Amsterdam"}
+        else {
         parseResult(result);
-      }
+      }}
     };
     xmlhttp.open("GET", searchurl, true);
     xmlhttp.send();
