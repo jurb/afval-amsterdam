@@ -28,13 +28,21 @@
         a:hover {
             color: #ea0000
         }
-        .button:hover, .button:visited, .button:focus {
+
+        .button:hover,
+        .button:visited,
+        .button:focus {
             color: #fff;
         }
 
-.section {
-    padding: 1.5rem 1.5rem;
-}
+        .section {
+            padding: 1.5rem 1.5rem;
+        }
+
+        .logo {
+            width: 39px;
+            height: 99px;
+        }
 
     </style>
 </head>
@@ -48,10 +56,9 @@
                     <div class="level-left">
                         <a href="/">
                             <p class="is-size-2 app-header">
-                        <img src="andreas.png" height="99" width="39" class="alt-logo" alt="Gemeente Amsterdam">
-                                Afval Info
+                                <img src="andreas.png" height="99" width="39" class="logo" alt="Gemeente Amsterdam"> Afval Info
                                 <strong>Amsterdam</strong>
-                        </p>
+                            </p>
                     </div>
                     <div class="level-right">
                         </a>
@@ -64,20 +71,20 @@
                             Zoek op huidige locatie of straat + huisnummer
                         </p>
                         <div class="field is-grouped">
-                                        <p class="control">
-                                            <button class="button is-large" id="geo-button" onclick="geoFindMe()">
-                                                <span class="icon is-small">
-                                                    <i class="fas fa-location-arrow icon-white"></i>
-                                                </span>
-                                            </button>
-                                        </p>
+                            <p class="control">
+                                <button class="button is-large" id="geo-button" onclick="geoFindMe()">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-location-arrow icon-white"></i>
+                                    </span>
+                                </button>
+                            </p>
                             <p class="control is-expanded">
                                 <input id="searchinput" spellcheck="false" class="input is-large" placeholder="Bijv. 'Amstel 1'">
                             </p>
                         </div>
                     </div>
                     <p class="is-size-5" id="search-status-text">
-                        </p>
+                    </p>
                     <div id="searchlist" class="is-size-5">
                     </div>
                 </div>
@@ -96,14 +103,15 @@
         </div>
     </section>
     <footer class="footer">
-            <div class="container">
-              <div class="content has-text-centered">
+        <div class="container">
+            <div class="content has-text-centered">
                 <p>
-                  Dit is een hobbyproject. Zie <a href="https://www.amsterdam.nl/afval/">de website van Amsterdam</a> voor officiële informatie.
+                    Dit is een hobbyproject. Zie
+                    <a href="https://www.amsterdam.nl/afval/">de website van Amsterdam</a> voor officiële informatie.
                 </p>
-              </div>
             </div>
-          </footer>
+        </div>
+    </footer>
 </body>
 <script src="app.js"></script>
 
