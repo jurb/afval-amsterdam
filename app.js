@@ -95,10 +95,11 @@ if (coords) {
         ophaaldagGrof +
         "</a>.";
     }
-    if (!tijd_vanafGrof) {
-      resultGrofvuil.innerHTML =
-        "<strong>Grofvuil</strong>: " + ophaaldagGrof + ".";
-    } else {
+    // if (!tijd_vanafGrof) {
+    //   resultGrofvuil.innerHTML =
+    //     "<strong>Grofvuil</strong>: " + ophaaldagGrof + ".";
+    // } 
+    else {
       resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: " +
         ophaaldagGrof +
