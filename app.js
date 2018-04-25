@@ -95,10 +95,10 @@ if (coords) {
         ophaaldagGrof +
         "</a>.";
     }
-    // if (!tijd_vanafGrof) {
-    //   resultGrofvuil.innerHTML =
-    //     "<strong>Grofvuil</strong>: " + ophaaldagGrof + ".";
-    // } 
+    if (ophaaldagGrof == "Geen inzamelingsdagen") {
+      resultGrofvuil.innerHTML =
+        "<strong>Grofvuil</strong>: Geen inzamelingsdagen.";
+    } 
     else {
       resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: " +
