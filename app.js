@@ -1,3 +1,4 @@
+// First we get the URL parameters
 function getURLParameters(key) {
   var params = new URL(document.location).searchParams;
   var name = params.get(key);
@@ -6,6 +7,10 @@ function getURLParameters(key) {
 
 var address = getURLParameters("address");
 var coords = getURLParameters("coords");
+
+////////////////////////////////////////////////////
+// If coords are in URL: show trash rules via API //
+////////////////////////////////////////////////////
 
 if (coords) {
   var afvalCoordsAPIcall = function afvalCoordsAPIcall() {
@@ -75,11 +80,8 @@ if (coords) {
     }
     if (!tijd_vanafGrof) {
       document.getElementById("result-grofvuil").innerHTML =
-        "<strong>Grofvuil</strong>: " +
-        ophaaldagGrof + ".";
-    }
-
-    else {
+        "<strong>Grofvuil</strong>: " + ophaaldagGrof + ".";
+    } else {
       document.getElementById("result-grofvuil").innerHTML =
         "<strong>Grofvuil</strong>: " +
         ophaaldagGrof +
@@ -101,8 +103,11 @@ if (coords) {
   var lon = coordsArray[0];
   afvalCoordsAPIcall();
   document.getElementById("search-container").className = "is-hidden";
-
 }
+
+////////////////////////////////////////////////////////////////////////
+// If address is in URL: get coordinates via API and put those in URL //
+////////////////////////////////////////////////////////////////////////
 
 if (address) {
   document.getElementById("search-container").className = "is-hidden";
@@ -128,7 +133,12 @@ if (address) {
   };
 
   addressSearchAPIcall();
-} else {
+}
+
+/////////////////////////////////////////////////////////
+// If no parameters in URL, show address and geo input //
+/////////////////////////////////////////////////////////
+else {
   var typeaheadAPIcall = function typeaheadAPIcall() {
     var xmlhttp = new XMLHttpRequest();
     var searchcontent = document.getElementById("searchinput").value;
@@ -145,10 +155,6 @@ if (address) {
     xmlhttp.send();
   };
 
-  var autocompleteSearchInput = function autocompleteSearchInput(label) {
-    document.getElementById("searchinput").value = label;
-  };
-
   var displayTypeahead = function displayTypeahead(arr) {
     var out = "";
     var i = void 0;
@@ -162,34 +168,46 @@ if (address) {
         }
       }
     }
-    
     document.getElementById("searchlist").innerHTML = "<br>" + out;
-    
-    if (window.NodeList && !NodeList.prototype.forEach) {
-        NodeList.prototype.forEach = function (callback, thisArg) {
-            thisArg = thisArg || window;
-            for (var i = 0; i < this.length; i++) {
-                callback.call(thisArg, this[i], i, this);
-            }
-        };
-    }
 
+    // add searchlist click listeners
+    if (window.NodeList && !NodeList.prototype.forEach) {
+      NodeList.prototype.forEach = function(callback, thisArg) {
+        thisArg = thisArg || window;
+        for (var i = 0; i < this.length; i++) {
+          callback.call(thisArg, this[i], i, this);
+        }
+      };
+    }
     document.querySelectorAll("#searchlist a").forEach(function(element) {
       element.addEventListener("click", function() {
         document.getElementById("searchinput").value =
           element.attributes.id.textContent + " ";
         document.getElementById("searchinput").focus();
-      }); // ends addEventListener
-    }); // ends forEach
-  }; // ends function
+      });
+    });
+  };
 
   document
     .getElementById("searchinput")
     .addEventListener("keyup", typeaheadAPIcall);
 
-
-
+  // Geo button stuff
   if (!navigator.geolocation) {
     document.getElementById("geo-button").className = "is-hidden";
   }
-} // ends else
+ 
+  var geoFindMe = function geoFindMe() {
+     function success(position) {
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      window.location = "?coords=" + lon + "," + lat;
+      };
+      
+      var error = function error() {
+        document.getElementById("search-status-text").innerHTML = "Het is niet gelukt om jouw locatie te vinden"; 
+      }
+      document.getElementById("search-status-text").innerHTML = "Bezig met locatie vinden..."; 
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+  } // ends else

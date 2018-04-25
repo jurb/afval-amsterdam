@@ -28,6 +28,9 @@
         a:hover {
             color: #ea0000
         }
+        .button:hover, .button:visited, .button:focus {
+            color: #fff;
+        }
 
 .section {
     padding: 1.5rem 1.5rem;
@@ -58,7 +61,7 @@
 
                 <div id="search-container">
                     <div class="control">
-                        <p class="is-size-4">
+                        <p class="is-size-4" id="search-input-text">
                             Zoek op straat/postcode + huisnummer
                         </p>
                         <div class="field is-grouped">
@@ -66,14 +69,16 @@
                                 <input id="searchinput" spellcheck="false" class="input is-large" placeholder="Bijv. 'Amstel 1'">
                             </p>
                             <p class="control">
-                                <button class="button is-large" onclick="geoFindMe()">
+                                <button class="button is-large" id="geo-button" onclick="geoFindMe()">
                                     <span class="icon is-small">
-                                        <i class="fas fa-location-arrow"></i>
+                                        <i class="fas fa-location-arrow icon-white"></i>
                                     </span>
                                 </button>
                             </p>
                         </div>
                     </div>
+                    <p class="is-size-5" id="search-status-text">
+                        </p>
                     <div id="searchlist" class="is-size-5">
                     </div>
                 </div>
