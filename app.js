@@ -276,7 +276,7 @@ else {
 
     var error = function error() {
       searchStatusText.innerHTML =
-        "Het is niet gelukt om jouw locatie te vinden";
+        "Jouw browser heeft onvoldoende ondersteuning voor het automatisch opzoeken van jouw locatie. Gebruik de zoekbalk.";
     };
     searchStatusText.innerHTML = "Bezig met locatie vinden...";
     navigator.geolocation.getCurrentPosition(success, error);
