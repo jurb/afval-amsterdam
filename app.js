@@ -65,8 +65,9 @@ if (coords) {
 
     if (ophaaldag) {
       var ophaaldagArray = ophaaldag.split(",");
-      var ophaaldagZin =
-        ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
+      if (parseInt(tijd_vanaf.slice(0,2)) > 20){  
+        var ophaaldagZin =
+      ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
         " en " +
         ophaaldagArray.slice(-1);
       resultHuisvuil.innerHTML =
@@ -76,9 +77,25 @@ if (coords) {
         ophaaldagZin +
         ", van " +
         tijd_vanaf +
-        " tot " +
+        " (avond ervoor) tot " +
         tijd_tot +
         ".";
+      } else {
+        var ophaaldagZin =
+        ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
+          " en " +
+          ophaaldagArray.slice(-1);
+        resultHuisvuil.innerHTML =
+          "<strong>Huisvuil</strong>: " +
+          aanbiedwijze +
+          ", op " +
+          ophaaldagZin +
+          ", van " +
+          tijd_vanaf +
+          " tot " +
+          tijd_tot +
+          ".";
+      }
     }
     if (!ophaaldag) {
       resultHuisvuil.innerHTML =
@@ -100,6 +117,16 @@ if (coords) {
         "<strong>Grofvuil</strong>: Geen inzamelingsdagen.";
     } 
     if (ophaaldagGrof != "Geen inzamelingsdagen" && ophaaldagGrof != "Op afspraak"){
+      if (parseInt(tijd_vanafGrof.slice(0,2)) > 20){
+      resultGrofvuil.innerHTML =
+        "<strong>Grofvuil</strong>: " +
+        ophaaldagGrof +
+        ", van " +
+        tijd_vanafGrof +
+        " (avond ervoor) tot " +
+        tijd_totGrof +
+        ".";
+    } else {
       resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: " +
         ophaaldagGrof +
@@ -109,6 +136,7 @@ if (coords) {
         tijd_totGrof +
         ".";
     }
+  }
     if (opmerkingGrof) {
       resultGrofvuilOpmerking.innerHTML = opmerkingGrof;
     }
