@@ -1,12 +1,18 @@
-// First we get the URL parameters
-function getURLParameters(key) {
-  var params = new URL(document.location).searchParams;
-  var name = params.get(key);
-  return name;
+// First we get the URL parameters (using oldschool function for IE support)
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
 }
 
-var address = getURLParameters("address");
-var coords = getURLParameters("coords");
+
+var address = getQueryVariable("address");
+var coords = getQueryVariable("coords");
 
 // Bind html element ids to variables
 var searchContainer = document.getElementById("search-container");
