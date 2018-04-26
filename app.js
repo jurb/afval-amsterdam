@@ -11,9 +11,13 @@ var coords = getURLParameters("coords");
 // Bind html element ids to variables
 var searchContainer = document.getElementById("search-container");
 var resultHuisvuil = document.getElementById("result-huisvuil");
-var resultHuisvuilOpmerking = document.getElementById("result-huisvuil-opmerking");
+var resultHuisvuilOpmerking = document.getElementById(
+  "result-huisvuil-opmerking"
+);
 var resultGrofvuil = document.getElementById("result-grofvuil");
-var resultGrofvuilOpmerking = document.getElementById("result-grofvuil-opmerking");
+var resultGrofvuilOpmerking = document.getElementById(
+  "result-grofvuil-opmerking"
+);
 var resultHeader = document.getElementById("result-header");
 var searchInput = document.getElementById("searchinput");
 var searchList = document.getElementById("searchlist");
@@ -36,10 +40,9 @@ if (coords) {
       if (this.readyState == 4 && this.status == 200) {
         var result = JSON.parse(this.responseText);
         if (result.result.features.length == 0) {
-          resultHeader.innerHTML =
-            "Deze locatie ligt niet in Amsterdam";
+          resultHeader.innerHTML = "Deze locatie ligt niet in Amsterdam";
         } else {
-          console.log(result.result.features)
+          console.log(result.result.features);
           parseResult(result);
         }
       }
@@ -65,24 +68,25 @@ if (coords) {
 
     if (ophaaldag) {
       var ophaaldagArray = ophaaldag.split(",");
-      if (parseInt(tijd_vanaf.slice(0,2)) > 20){  
+      // check for late collection time (means it happens night before)
+      if (parseInt(tijd_vanaf.slice(0, 2)) > 20) {
         var ophaaldagZin =
-      ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
-        " en " +
-        ophaaldagArray.slice(-1);
-      resultHuisvuil.innerHTML =
-        "<strong>Huisvuil</strong>: " +
-        aanbiedwijze +
-        ", op " +
-        ophaaldagZin +
-        ", van " +
-        tijd_vanaf +
-        " (avond ervoor) tot " +
-        tijd_tot +
-        ".";
+          ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
+          " en " +
+          ophaaldagArray.slice(-1);
+        resultHuisvuil.innerHTML =
+          "<strong>Huisvuil</strong>: " +
+          aanbiedwijze +
+          ", op " +
+          ophaaldagZin +
+          ", van " +
+          tijd_vanaf +
+          " (avond ervoor) tot " +
+          tijd_tot +
+          ".";
       } else {
         var ophaaldagZin =
-        ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
+          ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
           " en " +
           ophaaldagArray.slice(-1);
         resultHuisvuil.innerHTML =
@@ -115,28 +119,32 @@ if (coords) {
     if (ophaaldagGrof == "Geen inzamelingsdagen") {
       resultGrofvuil.innerHTML =
         "<strong>Grofvuil</strong>: Geen inzamelingsdagen.";
-    } 
-    if (ophaaldagGrof != "Geen inzamelingsdagen" && ophaaldagGrof != "Op afspraak"){
-      if (parseInt(tijd_vanafGrof.slice(0,2)) > 20){
-      resultGrofvuil.innerHTML =
-        "<strong>Grofvuil</strong>: " +
-        ophaaldagGrof +
-        ", van " +
-        tijd_vanafGrof +
-        " (avond ervoor) tot " +
-        tijd_totGrof +
-        ".";
-    } else {
-      resultGrofvuil.innerHTML =
-        "<strong>Grofvuil</strong>: " +
-        ophaaldagGrof +
-        ", van " +
-        tijd_vanafGrof +
-        " tot " +
-        tijd_totGrof +
-        ".";
     }
-  }
+    if (
+      ophaaldagGrof != "Geen inzamelingsdagen" &&
+      ophaaldagGrof != "Op afspraak"
+    ) {
+      // check for late collection time (means it happens night before)
+      if (parseInt(tijd_vanafGrof.slice(0, 2)) > 20) {
+        resultGrofvuil.innerHTML =
+          "<strong>Grofvuil</strong>: " +
+          ophaaldagGrof +
+          ", van " +
+          tijd_vanafGrof +
+          " (avond ervoor) tot " +
+          tijd_totGrof +
+          ".";
+      } else {
+        resultGrofvuil.innerHTML =
+          "<strong>Grofvuil</strong>: " +
+          ophaaldagGrof +
+          ", van " +
+          tijd_vanafGrof +
+          " tot " +
+          tijd_totGrof +
+          ".";
+      }
+    }
     if (opmerkingGrof) {
       resultGrofvuilOpmerking.innerHTML = opmerkingGrof;
     }
@@ -225,15 +233,13 @@ else {
     }
     document.querySelectorAll("#searchlist a").forEach(function(element) {
       element.addEventListener("click", function() {
-        searchInput.value =
-          element.attributes.id.textContent + " ";
-          searchInput.focus();
+        searchInput.value = element.attributes.id.textContent + " ";
+        searchInput.focus();
       });
     });
   };
 
-  searchInput
-    .addEventListener("keyup", typeaheadAPIcall);
+  searchInput.addEventListener("keyup", typeaheadAPIcall);
 
   // Geo button stuff
   if (!navigator.geolocation) {
@@ -248,12 +254,10 @@ else {
     }
 
     var error = function error() {
-      
       searchStatusText.innerHTML =
         "Het is niet gelukt om jouw locatie te vinden";
     };
-    searchStatusText.innerHTML =
-      "Bezig met locatie vinden...";
+    searchStatusText.innerHTML = "Bezig met locatie vinden...";
     navigator.geolocation.getCurrentPosition(success, error);
   };
 } // ends else
