@@ -42,7 +42,6 @@ if (coords) {
         if (result.result.features.length == 0) {
           resultHeader.innerHTML = "Deze locatie ligt niet in Amsterdam";
         } else {
-          console.log(result.result.features);
           parseResult(result);
         }
       }
