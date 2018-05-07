@@ -51,7 +51,7 @@ if (coords) {
           parseResult(result);
         }
       }
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState == 4 && this.status == 500) {
         resultHeader.innerHTML = "De API geeft een foutmelding. <a href='#' onclick='location.reload()'>Ververs de pagina</a> of <a href='/'>begin opnieuw</a>.";
       }
     };
