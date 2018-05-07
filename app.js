@@ -51,6 +51,9 @@ if (coords) {
           parseResult(result);
         }
       }
+      if (this.readyState == 4 && this.status == 200) {
+        resultHeader.innerHTML = "De API geeft een foutmelding. <a href='#' onclick='location.reload()'>Ververs de pagina</a> of <a href='/'>begin opnieuw</a>.";
+      }
     };
     xmlhttp.open("GET", searchurl, true);
     xmlhttp.send();
@@ -219,7 +222,7 @@ else {
       if (typeof start !== 'number') {
         start = 0;
       }
-      
+
       if (start + search.length > this.length) {
         return false;
       } else {
@@ -248,7 +251,7 @@ else {
       NodeList.prototype.forEach = function(callback, thisArg) {
         thisArg = thisArg || window;
         for (var i = 0; i < this.length; i++) {
-          callback.call(thisArg, this[i], i, this);
+          callback.call(thisArg, this[i], i, this)
         }
       };
     }
