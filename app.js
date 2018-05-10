@@ -87,9 +87,9 @@ if (coords) {
           aanbiedwijze +
           ", op " +
           ophaaldagZin +
-          ", van " +
+          ", buiten zetten tussen " +
           tijd_vanaf +
-          " (avond ervoor) tot " +
+          " (avond ervoor) en " +
           tijd_tot +
           ".";
       } else {
@@ -102,9 +102,9 @@ if (coords) {
           aanbiedwijze +
           ", op " +
           ophaaldagZin +
-          ", van " +
+          ", buiten zetten tussen " +
           tijd_vanaf +
-          " tot " +
+          " en " +
           tijd_tot +
           ".";
       }
@@ -137,18 +137,18 @@ if (coords) {
         resultGrofvuil.innerHTML =
           "<strong>Grofvuil</strong>: " +
           ophaaldagGrof +
-          ", van " +
+          ", buiten zetten tussen " +
           tijd_vanafGrof +
-          " (avond ervoor) tot " +
+          " (avond ervoor) en " +
           tijd_totGrof +
           ".";
       } else {
         resultGrofvuil.innerHTML =
           "<strong>Grofvuil</strong>: " +
           ophaaldagGrof +
-          ", van " +
+          ", buiten zetten tussen " +
           tijd_vanafGrof +
-          " tot " +
+          " en " +
           tijd_totGrof +
           ".";
       }
