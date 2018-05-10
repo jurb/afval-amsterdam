@@ -77,7 +77,7 @@ if (coords) {
     if (ophaaldag) {
       var ophaaldagArray = ophaaldag.split(",");
       // check for late collection time (means it happens night before)
-      if (parseInt(tijd_vanaf.slice(0, 2)) > 20) {
+      if (parseInt(tijd_vanaf.slice(0, 2)) >= 19) {
         var ophaaldagZin =
           ophaaldagArray.slice(0, ophaaldagArray.length - 1).join(", ") +
           " en " +
