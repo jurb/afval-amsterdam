@@ -133,7 +133,7 @@ if (coords) {
       ophaaldagGrof != "Op afspraak"
     ) {
       // check for late collection time (means it happens night before)
-      if (parseInt(tijd_vanafGrof.slice(0, 2)) > 20) {
+      if (parseInt(tijd_vanafGrof.slice(0, 2)) >= 19) {
         resultGrofvuil.innerHTML =
           "<strong>Grofvuil</strong>: " +
           ophaaldagGrof +
